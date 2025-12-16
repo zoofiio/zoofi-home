@@ -21,11 +21,13 @@ export function LgBgItem({ className, hPosition }: { className?: string; hPositi
 }
 export function LgBg() {
   return (
-    <div className="flex flex-col w-full h-full gap-40 md:gap-100 max-w-380 pointer-events-none absolute left-1/2 -translate-x-1/2 top-0 z-10 pt-[130vh]">
-      <LgBgItem hPosition="c" className="hidden md:block"/>
-      <LgBgItem hPosition="l" className="mt-[270vw] md:mt-0"/>
-      <LgBgItem hPosition="r" />
-      <LgBgItem hPosition="l" className="md:-mt-100 md:-translate-y-1/2"/>
+    <div className="flex justify-center w-full h-full pointer-events-none absolute left-0 top-0 z-10 pt-[130vh]">
+      <div className="w-full flex flex-col max-w-380 px-4 gap-40 md:gap-100 ">
+        <LgBgItem hPosition="c" className="hidden md:block" />
+        <LgBgItem hPosition="l" className="mt-[270vw] md:mt-0" />
+        <LgBgItem hPosition="r" />
+        <LgBgItem hPosition="l" className="md:-mt-100 md:-translate-y-1/2" />
+      </div>
     </div>
   );
 }

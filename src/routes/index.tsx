@@ -15,6 +15,7 @@ import worksSrc2 from "/zoo_gif2.mp4?url";
 import worksSrc3 from "/zoo_gif3.mp4?url";
 import worksSrc4 from "/zoo_gif4.mp4?url";
 import { LgBg } from "@/components/lg-bg";
+import { hyperspeedPresets } from "@/components/HyperspeedPresets";
 
 export const Route = createFileRoute("/")({
   component: App,
@@ -105,10 +106,10 @@ function WorkItem(p: { num: string; tit: string; sub: string; src: string }) {
 
 function App() {
   return (
-    <div className="w-full flex flex-col items-center bg-[url(/zoo_bg.svg)] bg-repeat relative">
+    <div className="w-full overflow-hidden flex flex-col items-center bg-[url(/zoo_bg.svg)] bg-repeat relative">
       <LgBg />
-      <section className="relative h-screen w-full flex flex-col items-center justify-center text-white text-[calc(10px+2vmin)]">
-        <Hyperspeed />
+      <section className="relative h-dvh w-full flex flex-col items-center justify-center text-white text-[calc(10px+2vmin)]">
+        <Hyperspeed effectOptions={hyperspeedPresets.four}/>
         <div className="absolute left-0 top-0 w-full min-h-full flex flex-col items-center text-center justify-center gap-5 leading-tight pt-40 pb-10">
           <div
             style={{
