@@ -105,10 +105,10 @@ function WorkItem(p: { num: string; tit: string; sub: string; src: string }) {
 
 function App() {
   return (
-    <div className="w-full min-h-full flex flex-col items-center bg-[url(/zoo_bg.svg)] bg-repeat relative">
+    <div className="w-full flex flex-col items-center bg-[url(/zoo_bg.svg)] bg-repeat relative">
       <LgBg />
       <section className="relative h-screen w-full flex flex-col items-center justify-center text-white text-[calc(10px+2vmin)]">
-        <Hyperspeed className="root_anim_item" />
+        <Hyperspeed />
         <div className="absolute left-0 top-0 w-full min-h-full flex flex-col items-center text-center justify-center gap-5 leading-tight pt-40 pb-10">
           <div
             style={{

@@ -1184,8 +1184,9 @@ const Hyperspeed: FC<HyperspeedProps> = ({ effectOptions = {}, className }) => {
     if (typeof options.distortion === "string") {
       options.distortion = distortions[options.distortion];
     }
-
     const myApp = new App(container, options);
+    const ro = new ResizeObserver(() => myApp.onWindowResize());
+    ro.observe(container);
     appRef.current = myApp;
     myApp.loadAssets().then(myApp.init);
 
@@ -1193,6 +1194,7 @@ const Hyperspeed: FC<HyperspeedProps> = ({ effectOptions = {}, className }) => {
       if (appRef.current) {
         appRef.current.dispose();
       }
+      ro.disconnect();
     };
   }, [mergedOptions]);
 
