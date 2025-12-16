@@ -22,6 +22,7 @@ export function LgBgItem({ className, hPosition }: { className?: string; hPositi
 export function LgBg() {
   return (
     <div className="flex justify-center w-full h-full pointer-events-none absolute left-0 top-0 z-10 pt-[130vh]">
+      <LgBgItem hPosition="r" className="absolute right-0 top-0 md:translate-1/4" />
       <div className="w-full flex flex-col max-w-380 px-4 gap-40 md:gap-100 ">
         <LgBgItem hPosition="c" className="hidden md:block" />
         <LgBgItem hPosition="l" className="mt-[270vw] md:mt-0" />
