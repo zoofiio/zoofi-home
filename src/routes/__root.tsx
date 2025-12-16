@@ -19,7 +19,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 
 function Root() {
   const rs = useRouterState();
-  useRootAnim([rs.location.pathname, rs.status]);
+  useRootAnim([rs.location.pathname, rs.statusCode]);
   return (
     <>
       <Header />

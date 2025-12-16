@@ -37,7 +37,10 @@ export function useRootAnim(dependencies: unknown[] = []) {
         const onEnter = ctxSafe((targets: Element[]) => {
           gsap.fromTo(targets, { y: 200, opacity: 0 }, { y: 0, opacity: 1, duration: 1, ease: "back.out(1)", stagger: 0.2, overwrite: true });
         });
-        ScrollTrigger.batch(".root_anim_item", {scroller: '#app', interval: 0.2, batchMax: 3, onEnter });
+        console.info("root_anim_item :",document.getElementsByClassName("root_anim_item").length) ;
+        ScrollTrigger.batch(".root_anim_item", {
+          // scroller: '#app', 
+          interval: 0.2, batchMax: 3, onEnter });
       }
     },
     { dependencies }

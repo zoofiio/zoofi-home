@@ -75,7 +75,7 @@ function GrowBorder({ children }: PropsWithChildren) {
 
 function WorkItem(p: { num: string; tit: string; sub: string; src: string }) {
   return (
-    <div className={cn("root_anim_item flex flex-col items-center gap-8 md:flex-row w-full", { "md:-mt-[clamp(80px,10.5vw,160px)]": p.num != "01" })}>
+    <div className={cn("root_anim_item flex flex-col items-center gap-8 md:flex-row w-full md:h-[clamp(200px,26.3vw,400px)]")}>
       <div className="text-[clamp(46px,5.5vw,84px)] flex gap-[.12em] leading-none flex-1">
         <span style={{ backgroundImage: "linear-gradient(180deg, #939393 0%, rgba(81, 81, 81, 0) 100%)" }} className="text-[1em] font-dmmono text-transparent bg-clip-text">
           {p.num}
@@ -95,7 +95,13 @@ function WorkItem(p: { num: string; tit: string; sub: string; src: string }) {
           <div className="text-[.285em] opacity-60">{p.sub}</div>
         </div>
       </div>
-      <video src={p.src} className={cn("w-[clamp(300px,39vw,600px)] h-auto md:rounded-[40%]", { "md:mr-[clamp(160px,21vw,320px)]": p.num == "01" || p.num == "03" })} muted loop autoPlay />
+      <video
+        src={p.src}
+        className={cn("w-[clamp(300px,39vw,600px)] h-auto md:rounded-full", { "md:mr-[clamp(160px,21vw,320px)]": p.num == "01" || p.num == "03" })}
+        muted
+        loop
+        autoPlay
+      />
     </div>
   );
 }
@@ -167,10 +173,12 @@ function App() {
       </section>
       <section className="w-full max-w-380 flex flex-col gap-5 py-8 px-4">
         <TitItem>How it works</TitItem>
-        <WorkItem num="01" tit="Deposit" sub="Your future claim" src={worksSrc2} />
-        <WorkItem num="02" tit="Zalando Sans Expanded" sub="Equal amount of fully tradeable tokens" src={worksSrc3} />
-        <WorkItem num="03" tit="Trade or Hold" sub="Swap on DEX & Arbitrage" src={worksSrc1} />
-        <WorkItem num="04" tit="Final Redemption" sub="Real tokens unlock → 1:1 guaranteed redemption" src={worksSrc4} />
+        <div className="flex flex-col w-full pt-20">
+          <WorkItem num="01" tit="Deposit" sub="Your future claim" src={worksSrc2} />
+          <WorkItem num="02" tit="Zalando Sans Expanded" sub="Equal amount of fully tradeable tokens" src={worksSrc3} />
+          <WorkItem num="03" tit="Trade or Hold" sub="Swap on DEX & Arbitrage" src={worksSrc1} />
+          <WorkItem num="04" tit="Final Redemption" sub="Real tokens unlock → 1:1 guaranteed redemption" src={worksSrc4} />
+        </div>
       </section>
       <section className="w-full max-w-380 flex flex-col gap-5 md:gap-8 lg:gap-10 py-8 px-4">
         <TitItem>Projects & Partners</TitItem>
