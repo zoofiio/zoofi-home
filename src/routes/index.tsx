@@ -97,7 +97,7 @@ function WorkItem(p: { num: string; tit: string; sub: string; src: string }) {
       </div>
       <video
         src={p.src}
-        className={cn("w-[clamp(300px,39vw,600px)] h-auto md:rounded-full", { "md:mr-[clamp(160px,21vw,320px)]": p.num == "01" || p.num == "03" })}
+        className={cn("w-[clamp(300px,39vw,600px)] h-auto md:rounded-full overflow-hidden", { "md:mr-[clamp(160px,21vw,320px)]": p.num == "01" || p.num == "03" })}
         muted
         loop
         autoPlay
@@ -109,7 +109,7 @@ function WorkItem(p: { num: string; tit: string; sub: string; src: string }) {
 function App() {
   return (
     <div className="w-full min-h-full flex flex-col items-center bg-[url(/zoo_bg.svg)] bg-repeat">
-      <section className="relative min-h-screen w-full h-full flex flex-col items-center justify-center text-white text-[calc(10px+2vmin)]">
+      <section className="relative h-screen w-full flex flex-col items-center justify-center text-white text-[calc(10px+2vmin)]">
         <Hyperspeed className="root_anim_item" />
         <div className="absolute left-0 top-0 w-full min-h-full flex flex-col items-center text-center justify-center gap-5 leading-tight pt-40 pb-10">
           <div
