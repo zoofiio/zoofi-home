@@ -14,6 +14,7 @@ import worksSrc1 from "/zoo_gif1.mp4?url";
 import worksSrc2 from "/zoo_gif2.mp4?url";
 import worksSrc3 from "/zoo_gif3.mp4?url";
 import worksSrc4 from "/zoo_gif4.mp4?url";
+import { LgBg } from "@/components/lg-bg";
 
 export const Route = createFileRoute("/")({
   component: App,
@@ -80,9 +81,9 @@ function WorkItem(p: { num: string; tit: string; sub: string; src: string }) {
         <span style={{ backgroundImage: "linear-gradient(180deg, #939393 0%, rgba(81, 81, 81, 0) 100%)" }} className="text-[1em] font-dmmono text-transparent bg-clip-text">
           {p.num}
         </span>
-        <div className="flex flex-col gap-[.12em] flex-1">
+        <div className="flex flex-col gap-[.12em] flex-1 w-50 md:w-max">
           <div className="flex gap-4 items-center flex-1">
-            <div className="text-[.5em]">{p.tit}</div>
+            <div className="text-[.5em] whitespace-nowrap">{p.tit}</div>
             <div
               className="relative h-px hidden md:block flex-1"
               style={{
@@ -95,20 +96,17 @@ function WorkItem(p: { num: string; tit: string; sub: string; src: string }) {
           <div className="text-[.285em] opacity-60">{p.sub}</div>
         </div>
       </div>
-      <video
-        src={p.src}
-        className={cn("w-[clamp(300px,39vw,600px)] h-auto md:rounded-full overflow-hidden", { "md:mr-[clamp(160px,21vw,320px)]": p.num == "01" || p.num == "03" })}
-        muted
-        loop
-        autoPlay
-      />
+      <div className={cn("md:rounded-full overflow-hidden w-[clamp(300px,39vw,600px)]", { "md:mr-[clamp(160px,21vw,320px)]": p.num == "01" || p.num == "03" })}>
+        <video src={p.src} className={cn("w-full h-auto")} muted loop autoPlay />
+      </div>
     </div>
   );
 }
 
 function App() {
   return (
-    <div className="w-full min-h-full flex flex-col items-center bg-[url(/zoo_bg.svg)] bg-repeat">
+    <div className="w-full min-h-full flex flex-col items-center bg-[url(/zoo_bg.svg)] bg-repeat relative">
+      <LgBg />
       <section className="relative h-screen w-full flex flex-col items-center justify-center text-white text-[calc(10px+2vmin)]">
         <Hyperspeed className="root_anim_item" />
         <div className="absolute left-0 top-0 w-full min-h-full flex flex-col items-center text-center justify-center gap-5 leading-tight pt-40 pb-10">
@@ -175,7 +173,7 @@ function App() {
         <TitItem>How it works</TitItem>
         <div className="flex flex-col w-full pt-20">
           <WorkItem num="01" tit="Deposit" sub="Your future claim" src={worksSrc2} />
-          <WorkItem num="02" tit="Zalando Sans Expanded" sub="Equal amount of fully tradeable tokens" src={worksSrc3} />
+          <WorkItem num="02" tit="Instantly Receive" sub="Equal amount of fully tradeable tokens" src={worksSrc3} />
           <WorkItem num="03" tit="Trade or Hold" sub="Swap on DEX & Arbitrage" src={worksSrc1} />
           <WorkItem num="04" tit="Final Redemption" sub="Real tokens unlock → 1:1 guaranteed redemption" src={worksSrc4} />
         </div>

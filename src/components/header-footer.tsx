@@ -41,7 +41,7 @@ export function Header() {
   });
   return (
     <>
-      <header id="header" className="root_anim_item fixed z-50 left-0 top-0 w-full flex items-center p-4 md:bg-[#424242]/20 md:py-1.5 md:backdrop-blur-lg md:border-b md:border-b-[#1C241C]">
+      <header id="header" className="fixed z-50 left-0 top-0 w-full flex items-center p-4 md:bg-[#424242]/20 md:py-1.5 md:backdrop-blur-lg md:border-b md:border-b-[#1C241C]">
         <div className="flex items-center justify-between mx-auto w-full max-w-380 rounded-full p-3.5 backdrop-blur-lg md:backdrop-blur-none md:px-0 md:rounded-none bg-[#424242]/30 md:bg-transparent border border-[#262626] md:border-transparent">
           <h1 className="ml-4 text-xl font-semibold">
             <Link to="/">

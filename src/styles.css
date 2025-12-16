@@ -31,8 +31,13 @@ body,
   background-color: black;
 }
 
-#app {
+html {
+  height: 100%;
   overflow-y: auto;
+  scroll-behavior: smooth;
+}
+#app {
+  overflow: hidden;
 }
 
 :root {
