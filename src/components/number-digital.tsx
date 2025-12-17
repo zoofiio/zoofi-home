@@ -1,45 +1,38 @@
+import { useGSAP } from "@gsap/react";
 import { useQuery } from "@tanstack/react-query";
-import { round } from "es-toolkit";
+import { chunk, range, round, shuffle } from "es-toolkit";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+function AnimNumItem({ num }: { num: string }) {
+  return (
+    <div className="relative w-full h-[1em] flex justify-center items-center shrink-0">
+      <span style={{ filter: "drop-shadow(0px 0px 14px #3FFF4C)" }} className="text-[.45em]">
+        {num === "$" ? "5" : num}
+      </span>
+      {num === "$" && (
+        <div style={{ filter: "drop-shadow(0px 0px 14px #3FFF4C)" }} className="absolute bg-white left-1/2 -translate-x-1/2 top-[.24em] w-[.05em] h-[.516em] rounded-[1px]"></div>
+      )}
+    </div>
+  );
+}
 function NumberItem({ num }: { num: string }) {
   if (num == "," || num == ".") {
     return <span className="text-[clamp(9px,3.9vw,60px)] leading-0 text-[#1ECA53]">{num}</span>;
   }
+
   return (
-    <svg className="shrink-0 text-[clamp(18px,7.8vw,120px)]" width=".65em" height="1em" viewBox="0 0 78 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect opacity="0.5" width="78" height="120" fill="url(#paint0_linear_90_107)" />
-      <rect width="1" height="120" fill="url(#paint1_linear_90_107)" />
-      <rect x="77" width="1" height="120" fill="url(#paint2_linear_90_107)" />
-      <g
-        style={{
-          filter: "drop-shadow(0px 0px 14px #3FFF4C)",
-        }}
-      >
-        <text textAnchor="middle" fontSize={54} x="39" y="87" className="font-dseg7mini font-bold" fill="white">
-          {num === "$" ? "5" : num}
-        </text>
-        {num === "$" && <rect fill="white" x={36} y={29} width={6} height={62} />}
-      </g>
-      <defs>
-        <linearGradient id="paint0_linear_90_107" x1="39" y1="0" x2="39" y2="120" gradientUnits="userSpaceOnUse">
-          <stop stop-opacity="0" />
-          <stop offset="0.509615" stop-color="#1CB94D" />
-          <stop offset="1" stop-opacity="0" />
-        </linearGradient>
-        <linearGradient id="paint1_linear_90_107" x1="0.5" y1="0" x2="0.5" y2="120" gradientUnits="userSpaceOnUse">
-          <stop stop-opacity="0" />
-          <stop offset="0.399038" stop-color="#1ECA53" />
-          <stop offset="0.649038" stop-color="#1ECA53" />
-          <stop offset="1" stop-opacity="0" />
-        </linearGradient>
-        <linearGradient id="paint2_linear_90_107" x1="77.5" y1="0" x2="77.5" y2="120" gradientUnits="userSpaceOnUse">
-          <stop stop-opacity="0" />
-          <stop offset="0.399038" stop-color="#1ECA53" />
-          <stop offset="0.649038" stop-color="#1ECA53" />
-          <stop offset="1" stop-opacity="0" />
-        </linearGradient>
-      </defs>
-    </svg>
+    <div className="shrink-0 text-[clamp(18px,7.8vw,120px)] w-[.65em] h-[1em] flex flex-col font-dseg7mini font-bold text-white relative overflow-hidden bg-no-repeat bg-[url(/numbg.svg)] bg-contain">
+      {num === "$" ? (
+        <AnimNumItem num={num} />
+      ) : (
+        <div className="tvl_num_item flex flex-col w-full h-max">
+          {range(parseInt(num), parseInt(num) + 11).map((n, i) => (
+            <AnimNumItem key={`num_item_anim_i_${i}`} num={`${n % 10}`} />
+          ))}
+        </div>
+      )}
+    </div>
   );
 }
 
@@ -50,12 +43,43 @@ export function Tvl() {
     queryFn: async () => {
       const res = await fetch("https://api.llama.fi/tvl/zoo-finance");
       const data = await res.json();
-      const fmtTvl = round(data, 2).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+      const fmtTvl = round(data, 2).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
       console.info("TVL data:", fmtTvl);
       return `$${fmtTvl}`;
     },
   });
   const items = data.trim().split("");
+  useGSAP(
+    (_ctx, ctxSafe) => {
+      const to = setTimeout(() => {
+        if (ctxSafe) {
+          const onEnter = ctxSafe((targets: Element[]) => {
+            console.info("TVL nums anim:", targets.length);
+            chunk(shuffle(targets), Math.ceil(targets.length / 2)).forEach((tg, i) => {
+              gsap.fromTo(
+                tg,
+                { yPercent: i ? -90.9 : 0 },
+                {
+                  yPercent: i ? 0 : -90.9,
+                  duration: 1.5,
+                  ease: "power2.out",
+                  delay: 0,
+                  overwrite: true,
+                }
+              );
+            });
+          });
+          ScrollTrigger.batch(`.tvl_num_item`, {
+            interval: 0,
+            batchMax: 20,
+            onEnter,
+          });
+        }
+      }, 50);
+      return () => clearTimeout(to);
+    },
+    { dependencies: [data] }
+  );
   return (
     <div className="flex relative items-center gap-[clamp(2px,0.78vw,12px)] py-[clamp(5px,0.78vw,12px)] px-[clamp(10px,1.5vw,24px)] [--fcolor:#1ECA53]">
       {items.map((num, i) => (
