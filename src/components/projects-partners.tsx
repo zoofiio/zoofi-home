@@ -5,6 +5,7 @@ import story from "/partners/story.svg";
 import reppo from "/partners/reppo.png";
 import bera from "/partners/bera.png";
 import filecoin from "/partners/filecoin.png";
+import sei from "/partners/sei.svg";
 
 const partners: { name: string; icon: string }[] = [
   { name: "Aethir", icon: aethir },
@@ -14,6 +15,7 @@ const partners: { name: string; icon: string }[] = [
   { name: "NodeOps", icon: nodeops },
   { name: "Berachain", icon: bera },
   { name: "Filecoin", icon: filecoin },
+  { name: "Sei Network", icon: sei },
 ];
 
 export function ProjectsPartners() {
