@@ -98,7 +98,7 @@ function WorkItem(p: { num: string; tit: string; sub: string; src: string }) {
         </div>
       </div>
       <div className={cn("md:rounded-full overflow-hidden w-[clamp(300px,39vw,600px)]", { "md:mr-[clamp(160px,21vw,320px)]": p.num == "01" || p.num == "03" })}>
-        <video src={p.src} className={cn("w-full h-auto")} muted loop autoPlay />
+        <video src={p.src} className={cn("w-full h-auto pointer-events-none")} muted loop autoPlay controls={false} playsInline webkit-playsinline/>
       </div>
     </div>
   );
