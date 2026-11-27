@@ -19,12 +19,13 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 
 function Root() {
   const rs = useRouterState();
+  const isLanding = rs.location.pathname === "/";
   useRootAnim([rs.location.pathname, rs.statusCode]);
   return (
     <>
-      <Header />
+      {!isLanding && <Header />}
       <Outlet />
-      <Footer />
+      {!isLanding && <Footer />}
       {import.meta.env.DEV && (
         <TanStackDevtools
           plugins={[
